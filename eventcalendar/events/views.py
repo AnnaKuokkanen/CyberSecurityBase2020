@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,6 @@ def register_user(request):
             )
     user.save()
     return render(request, 'registration.html')
-
 
 @login_required
 def home(request):

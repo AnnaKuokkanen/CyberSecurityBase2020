@@ -71,6 +71,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'eventcalendar.wsgi.application'
 
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/home/'
+SESSION_COOKIE_SAMESITE = None
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 

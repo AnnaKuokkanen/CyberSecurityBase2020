@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Event Calendar</title>
-    </head>
- 
-    <body>
-        <h1>Login</h1>
-		<form method="POST">
-            {% csrf_token %}
-            Username <input type="string" name="username"/>
-            <br/>
-            Password <input type="password" name="password"/>
-            <br/>
-            <button type="submit">Login</button>
-        </form>
-    </body>
-</html>
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
