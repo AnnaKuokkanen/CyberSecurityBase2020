@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Participant(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=150, default='', unique=True)
 class Event(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
