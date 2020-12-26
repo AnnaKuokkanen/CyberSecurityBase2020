@@ -1,20 +1,21 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.decorators import login_required
-from .models import User
-
-# Create your views here.
-def register_user(request):
-    user = User(username=request.POST['username'],
-            password=request.POST['password'],
-            firstname=request.POST['firstname'], 
-            lastname=request.POST['lastname'],
-            age=request.POST['age']
-            )
-    user.save()
-    return render(request, 'registration.html')
+from .models import Event
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    username = request.user.username
+
+    if request.method == "POST" and request.POST['event_name'] != '' and request.POST['event_description'] != '':
+        name = request.POST['event_name']
+        description = request.POST['event_description']
+        new_event = Event(name=name, description=description)
+        new_event.save()
+        return HttpResponseRedirect("/home/")
+
+    events = Event.objects.all()
+    context = {'username': username, 'events': events}
+
+    return render(request, 'home.html', context)

@@ -6,7 +6,28 @@
     </head>
  
     <body>
-		<h1>Welcome to your Event Calendar!</h1>
+    <h1>Welcome to your Event Calendar!</h1>
+    <h3>You are logged in as {{username}}</h3>
+
+    <br />
+
+    <h2>Your events</h2>
+
+    {% for event in events %}
+      <b>{{ event.name }}</b>
+      <p>Description: {{ event.description }}</p>
+    {% endfor %}
+
+    <br />
+
+    <h2>Add a new event!</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+      Event name <input type="string" name="event_name"/>
+      Event description <input type="text" name="event_description"/>
+      <button type="submit">Add!</button>
+    </form>
     </body>
 </html>
  
