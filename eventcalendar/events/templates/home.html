@@ -13,6 +13,14 @@
 
       <h2>Your events</h2>
 
+      <b>Search events</b>
+      <form method="GET">
+        <input type="string" name="event_search"/>
+        <button type="submit">Search</button>
+      </form> 
+
+      <br />
+
       {% for event in events %}
         <b>{{ event.name }}</b>
         <p>Description: {{ event.description }}</p>
@@ -28,6 +36,8 @@
         Event description <input type="text" name="event_description"/>
         <button type="submit">Add!</button>
       </form>
+
+      <br /> 
 
       <form>
         <input type="button" onclick="window.location.href='/logout/';" value="Logout" />
