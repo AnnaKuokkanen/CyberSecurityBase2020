@@ -31,7 +31,9 @@ def home(request):
 def query(search):
 	print('Searching with keyword ' + search) 
 	with connection.cursor() as cursor:
-		response = cursor.execute("SELECT name FROM events_event WHERE name='%s'" % (search)).fetchall()
+		response = cursor.execute("SELECT name FROM events_event WHERE name LIKE '%%%s%%'" % (search)).fetchall()
+		for r in response:
+			print('Match ' + str(r))
 	return response
 
 
