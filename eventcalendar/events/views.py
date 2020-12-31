@@ -8,7 +8,8 @@ from .models import Event, Participant
 @login_required
 def home(request):
 	username = request.user.username
-	events = Event.objects.all()
+	current_user = Participant.objects.get(username=username)
+	events = Event.objects.all().filter(participants=current_user)
 
 	if request.method == "POST" and request.POST['event_name'] != '' and request.POST['event_description'] != '':
 		name = request.POST['event_name']
@@ -39,8 +40,6 @@ def query(search):
 
 def event(request, id):
 	event = Event.objects.get(id=id)
-	if event == None:
-		return HttpResponseRedirect("/home/")
 	
 	context = {'event': event}
 
