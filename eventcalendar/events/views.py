@@ -8,10 +8,10 @@ from .models import Event, Participant
 # @login_required
 def home(request):
 	username = request.user.username
-	if request.user == True:
+	if username != '':
 		current_user = Participant.objects.get(username=username)
 		events = Event.objects.all().filter(participants=current_user)
-	else: 
+	else:
 		events = Event.objects.all()
 
 	if request.method == "POST" and request.POST['event_name'] != '' and request.POST['event_description'] != '':
