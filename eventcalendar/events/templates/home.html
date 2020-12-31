@@ -23,6 +23,7 @@
 
       {% for event in events %}
         <b>{{ event.name }}</b>
+        <a href="/event/{{event.id}}">more info</a>
         <p>Description: {{ event.description }}</p>
       {% endfor %}
 

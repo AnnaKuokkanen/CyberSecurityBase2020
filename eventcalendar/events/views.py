@@ -16,10 +16,12 @@ def home(request):
 		new_event = Event(name=name, description=description)
 		new_event.save()
 		obj, participant = Participant.objects.get_or_create(username=request.user.username)
+
 		if participant == True:
 			new_event.participants.add(participant)
 		else: 
 			new_event.participants.add(obj)
+
 		new_event.save()
 		return HttpResponseRedirect("/home/")
 
@@ -31,12 +33,15 @@ def home(request):
 	return render(request, 'home.html', context)
 
 def query(search):
-	print('Searching with keyword ' + search) 
 	response = Event.objects.raw("SELECT * FROM events_event WHERE name LIKE '%%%s%%'" % (search))
-	for r in response: 
-		print('Match ' + str(r))
 	return response
 
 
 def event(request, id):
-	return None
+	event = Event.objects.get(id=id)
+	if event == None:
+		return HttpResponseRedirect("/home/")
+	
+	context = {'event': event}
+
+	return render(request, 'event.html', context)
