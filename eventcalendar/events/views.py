@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.db import connection
 from .models import Event, Participant
 
-@login_required
+# @login_required
 def home(request):
 	username = request.user.username
-	current_user = Participant.objects.get(username=username)
-	events = Event.objects.all().filter(participants=current_user)
+	if request.user == True:
+		current_user = Participant.objects.get(username=username)
+		events = Event.objects.all().filter(participants=current_user)
+	else: 
+		events = Event.objects.all()
 
 	if request.method == "POST" and request.POST['event_name'] != '' and request.POST['event_description'] != '':
 		name = request.POST['event_name']
