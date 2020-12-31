@@ -15,8 +15,11 @@ def home(request):
 		description = request.POST['event_description']
 		new_event = Event(name=name, description=description)
 		new_event.save()
-		obcj, participant = Participant.objects.get_or_create(username=request.user.username)
-		new_event.participants.add(participant)
+		obj, participant = Participant.objects.get_or_create(username=request.user.username)
+		if participant == True:
+			new_event.participants.add(participant)
+		else: 
+			new_event.participants.add(obj)
 		new_event.save()
 		return HttpResponseRedirect("/home/")
 
