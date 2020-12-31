@@ -21,21 +21,14 @@ def home(request):
 		return HttpResponseRedirect("/home/")
 
 	if request.method == "GET" and 'event_search' in request.GET:
-		#print('Searching... ' + str(query(request.GET['event_search'])))
 		events = query(request.GET['event_search'])
 
 	context = {'username': username, 'events': events}
-
-	#print('events are' + str(events)) 
 
 	return render(request, 'home.html', context)
 
 def query(search):
 	print('Searching with keyword ' + search) 
-	# with connection.cursor() as cursor:
-	# 	response = cursor.execute("SELECT * FROM events_event WHERE name LIKE '%%%s%%'" % (search)).fetchall()
-	# 	for r in response:
-	# 		print('Match ' + str(r))
 	response = Event.objects.raw("SELECT * FROM events_event WHERE name LIKE '%%%s%%'" % (search))
 	for r in response: 
 		print('Match ' + str(r))
